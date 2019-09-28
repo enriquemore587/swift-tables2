@@ -8,13 +8,34 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    let imagenFonto = UIImageView(image: UIImage(named : "caballo"))
+    var personas = ["jose", "Enrique", "Vergara", "Ambriz", "Pedro", "Pepe"]
 
+    @IBOutlet weak var tabla: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        tabla.backgroundView = imagenFonto
     }
-
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return personas.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "celda", for : indexPath)
+        cell.textLabel?.text = personas[indexPath.row]
+        cell.textLabel?.font = UIFont(name: "Avenir", size: CGFloat(32))
+        cell.textLabel?.textColor = .darkGray
+        cell.backgroundColor = UIColor.clear
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
 
 }
 
